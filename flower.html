@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You 🌹</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #fff5f7, #ffe4f0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* FLOWER CONTAINER */
+    .flower-container {
+      position: relative;
+      width: 280px;
+      height: 450px;
+      animation: grow 3s ease-out forwards;
+    }
+
+    /* STEM */
+    .stem {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 220px;
+      background: linear-gradient(to top, #2d5016, #4a7c2c);
+      border-radius: 3px;
+      opacity: 0;
+      animation: stemGrow 2.5s ease-out forwards;
+    }
+
+    /* LEAVES */
+    .leaf {
+      position: absolute;
+      bottom: 100px;
+      width: 70px;
+      height: 35px;
+      background: #4a7c2c;
+      border-radius: 50% 0;
+      opacity: 0;
+    }
+
+    .leaf-left {
+      left: 20px;
+      transform: rotate(-35deg);
+      animation: leafGrow 2s ease-out 0.8s forwards;
+    }
+
+    .leaf-right {
+      right: 20px;
+      transform: rotate(35deg) scaleX(-1);
+      animation: leafGrow 2s ease-out 1s forwards;
+    }
+
+    /* PETALS */
+    .petals {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 140px;
+      animation: bloomPetal 2.5s ease-out 1.8s forwards;
+    }
+
+    .petal {
+      position: absolute;
+      width: 45px;
+      height: 90px;
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      border-radius: 50% 50% 50% 0;
+      left: 50%;
+      top: 50%;
+      transform-origin: 50% 100%;
+      opacity: 0;
+      filter: drop-shadow(0 2px 5px rgba(255, 105, 180, 0.3));
+    }
+
+    .petal:nth-child(1) {
+      transform: translate(-50%, -50%) rotate(0deg) translateY(-70px);
+      animation: petalUnfold 1.2s ease-out 1.8s forwards;
+    }
+
+    .petal:nth-child(2) {
+      transform: translate(-50%, -50%) rotate(72deg) translateY(-70px);
+      animation: petalUnfold 1.2s ease-out 1.95s forwards;
+    }
+
+    .petal:nth-child(3) {
+      transform: translate(-50%, -50%) rotate(144deg) translateY(-70px);
+      animation: petalUnfold 1.2s ease-out 2.1s forwards;
+    }
+
+    .petal:nth-child(4) {
+      transform: translate(-50%, -50%) rotate(216deg) translateY(-70px);
+      animation: petalUnfold 1.2s ease-out 2.25s forwards;
+    }
+
+    .petal:nth-child(5) {
+      transform: translate(-50%, -50%) rotate(288deg) translateY(-70px);
+      animation: petalUnfold 1.2s ease-out 2.4s forwards;
+    }
+
+    /* CENTER */
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 35px;
+      height: 35px;
+      background: #ffd700;
+      border-radius: 50%;
+      opacity: 0;
+      animation: centerGrow 1s ease-out 2.7s forwards;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.7), inset -2px -2px 5px rgba(200, 150, 0, 0.4);
+    }
+
+    /* MESSAGE */
+    .message {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      opacity: 0;
+      animation: fadeInMessage 1s ease-out 3.8s forwards;
+      width: 280px;
+    }
+
+    .message h1 {
+      font-size: 1.8rem;
+      color: #d63384;
+      margin-bottom: 8px;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    .message p {
+      color: #8b2c22;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* BUTTON */
+    .button-group {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: fadeInMessage 1s ease-out 4.5s forwards;
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 11px 26px;
+      border-radius: 24px;
+      border: none;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: #ff69b4;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #ff1493;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #d63384;
+      border: 2px solid #d63384;
+    }
+
+    .btn-secondary:hover {
+      background: #d63384;
+      color: white;
+    }
+
+    /* ANIMATIONS */
+    @keyframes grow {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes stemGrow {
+      from {
+        height: 0;
+        opacity: 1;
+      }
+      to {
+        height: 220px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes leafGrow {
+      from {
+        opacity: 0;
+        transform: scale(0);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes petalUnfold {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--rotate)) translateY(-70px) scale(0);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--rotate)) translateY(-70px) scale(1);
+      }
+    }
+
+    @keyframes centerGrow {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes fadeInMessage {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- AUDIO PLAYER -->
+<audio id="bgMusic" loop>
+  <source src="audio/backsound.mpeg" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <!-- IFRAME BUNGA -->
+  <iframe src="flower/bunga-flower-main/index.html" style="width: 100%; height: 100%; border: none; border-radius: 16px;"></iframe>
+
+  <!-- BUTTONS -->
+  <div class="button-group">
+    <button class="btn btn-primary" onclick="saveMusicTime(); fadeOutAudio(bgMusic, () => { window.location.href = 'nb.html'; });">Selesai</button>
+  </div>
+</div>
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+
+// Lanjutkan musik
+if (sessionStorage.getItem("musicStarted") === "true") {
+  const savedTime = parseFloat(sessionStorage.getItem("musicTime")) || 0;
+  bgMusic.currentTime = savedTime;
+  bgMusic.volume = 0.8;
+  bgMusic.play().catch(err => console.log("Auto play blocked:", err));
+}
+
+setInterval(() => {
+  if (!bgMusic.paused) {
+    sessionStorage.setItem("musicTime", bgMusic.currentTime);
+  }
+}, 1000);
+
+function saveMusicTime() {
+  sessionStorage.setItem("musicTime", bgMusic.currentTime);
+}
+
+// Fade out musik
+function fadeOutAudio(audio, callback, duration = 2000) {
+  const startVolume = audio.volume;
+  const startTime = Date.now();
+  
+  const interval = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    audio.volume = startVolume * (1 - progress);
+    
+    if (progress === 1) {
+      clearInterval(interval);
+      audio.volume = 0;
+      if (callback) callback();
+    }
+  }, 50);
+}
+</script>
+
+</body>
+</html>
